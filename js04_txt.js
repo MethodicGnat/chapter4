@@ -69,7 +69,14 @@ function createEventListeners() {
 
 /* verify acres text box entry is a positive number */
 function verifyAcres() {
-   testFormCompleteness();      
+   try {
+      if (!(acresBox.value > 0)) throw "Enter a positive acreage";
+      testFormCompleteness();
+      
+   } catch(error) {
+      messageElement.innerHTML = error;
+      messageHeadElement.innerHTML = "";
+   }    
 }
 
 /* verify at least one crops checkbox is checked */
@@ -79,7 +86,14 @@ function verifyCrops() {
 
 /* verify months text box entry is between 1 and 12 */
 function verifyMonths() {
-   testFormCompleteness();
+   try {
+      if (!(monthsBox.value >= 1 && monthsBox.value <= 12))
+         throw "Enter months between 1 and 12";
+      testFormCompleteness();
+   } catch(error) {
+      messageElement.innerHTML = error;
+      messageHeadElement.innerHTML = "";
+   }
 }
 
 /* verify that a fuel option button is selected */
@@ -92,6 +106,7 @@ function testFormCompleteness() {
    if (acresComplete && cropsComplete && monthsComplete && fuelComplete) {
       createRecommendation();
    }
+   
 }
 
 /* generate tractor recommendation based on user selections */
